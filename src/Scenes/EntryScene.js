@@ -1,5 +1,7 @@
 import Phaser from '../phaser';
 import Button from '../Objects/Button';
+import Player from '../Entities/player';
+import GunShip from '../Entities/gunShip';
 
 export default class EntryScene extends Phaser.Scene {
   constructor() {
@@ -10,6 +12,16 @@ export default class EntryScene extends Phaser.Scene {
     this.load.image('space', '../src/resources/images/space-top.png');
     this.load.image('cmdButton', '../src/resources/images/ui/cmdButton.png');
     this.load.image('cmdButtonHover', '../src/resources/images/ui/cmdButtonHover.png');
+
+    // this.load.image('playerShip', '../src/resources/images/ui/playerShip.png');
+    this.load.spritesheet('playerShip', '../src/resources/images/ui/playerShip.png', {
+      frameWidth: 16,
+      frameHeight: 16,
+    });
+    this.load.spritesheet('gunShip', '../src/resources/images/ui/gunShip.png', {
+      frameWidth: 16,
+      frameHeight: 16,
+    });
 
     this.load.image('carrierShip', '../src/resources/images/ui/carrierShip.png');
     this.load.image('chaserShip', '../src/resources/images/ui/chaserShip.png');
@@ -27,12 +39,8 @@ export default class EntryScene extends Phaser.Scene {
   create() {
     const centerX = this.game.config.width * 0.5;
     const centerY = this.game.config.height * 0.5;
-    // const style = { color: '#fff', fontSize: 24 };
-    // this.yText = this.add.text(100, 10, 'Boot Scene', style);
-    // this.text = this.add.text(centerX, 100, 'Shooter Game', { fontSize: 40, align: 'center' });
-    // this.scene.start('Preloader');
 
-    this.btnspace = this.add.sprite(
+    this.space = this.add.sprite(
       centerX,
       100,
       'space',
@@ -47,7 +55,36 @@ export default class EntryScene extends Phaser.Scene {
     });
     this.title.setOrigin(0.5);
 
-    this.menuButton = new Button(this, centerX, centerY, 'cmdButton', 'cmdButtonHover', 'Play', 'Title');
+    this.playButton = new Button(this, centerX, centerY, 'cmdButton', 'cmdButtonHover', 'Play', 'Battle');
 
+    // player ship
+    this.anims.create({
+      key: 'playerShip',
+      frames: this.anims.generateFrameNumbers('playerShip'),
+      frameRate: 20,
+      repeat: -1,
+    });
+    this.player = new Player(
+      this,
+      centerX,
+      centerY * 1.7,
+      'playerShip',
+    );
+    this.player.scale = 4.0;
+
+    // gunShip
+    this.anims.create({
+      key: 'gunShip',
+      frames: this.anims.generateFrameNumbers('gunShip'),
+      frameRate: 20,
+      repeat: -1,
+    });
+    this.gunShip = new GunShip(
+      this,
+      centerX,
+      centerY * 1.7,
+      'gunShip',
+    );
+    this.gunShip.scale = 4.0;
   }
 }
