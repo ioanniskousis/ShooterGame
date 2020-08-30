@@ -1,7 +1,5 @@
 import Phaser from '../phaser';
 import Button from '../Objects/Button';
-import Player from '../Entities/player';
-import GunShip from '../Entities/gunShip';
 
 export default class EntryScene extends Phaser.Scene {
   constructor() {
@@ -13,40 +11,39 @@ export default class EntryScene extends Phaser.Scene {
     this.load.image('cmdButton', '../src/resources/images/ui/cmdButton.png');
     this.load.image('cmdButtonHover', '../src/resources/images/ui/cmdButtonHover.png');
 
-    // this.load.image('playerShip', '../src/resources/images/ui/playerShip.png');
     this.load.spritesheet('playerShip', '../src/resources/images/ui/playerShip.png', {
       frameWidth: 16,
       frameHeight: 16,
     });
-    this.load.spritesheet('gunShip', '../src/resources/images/ui/gunShip.png', {
+    this.load.spritesheet('alienShip', '../src/resources/images/ui/alienShip.png', {
       frameWidth: 16,
       frameHeight: 16,
     });
-
-    this.load.image('carrierShip', '../src/resources/images/ui/carrierShip.png');
-    this.load.image('chaserShip', '../src/resources/images/ui/chaserShip.png');
-    // this.load.image('gunShip', '../src/resources/images/ui/gunShip.png');
-    this.load.image('cmdButtonHover', '../src/resources/images/ui/cmdButtonHover.png');
-
-    this.load.spritesheet('gunShip', '../src/resources/images/ui/gunShip.png', {
+    this.load.spritesheet('motherShip', '../src/resources/images/ui/motherShip.png', {
       frameWidth: 16,
       frameHeight: 16,
     });
+    this.load.image('dogShip', '../src/resources/images/ui/dogShip.png');
 
-    this.load.image('laserPlayer', '../src/resources/images/ui/laserPlayer.png');
+    this.load.audio('entry', '../src/resources/audio/entry.mp3');
   }
 
-  create() {
-    const centerX = this.game.config.width * 0.5;
-    const centerY = this.game.config.height * 0.5;
-
+  renderBackground() {
     this.space = this.add.sprite(
-      centerX,
-      100,
+      this.game.config.width * 0.5,
+      70,
       'space',
     );
+  }
 
-    this.title = this.add.text(centerX, 100, 'Shooter Game', {
+  renderPlayButton() {
+    const centerX = this.game.config.width * 0.5;
+    const centerY = this.game.config.height * 0.5;
+    this.playButton = new Button(this, centerX, centerY - 80, 'cmdButton', 'cmdButtonHover', 'Play', 'Battle');
+  }
+
+  renderTitle() {
+    this.title = this.add.text(this.game.config.width * 0.5, 100, 'Shooter Game', {
       fontFamily: 'monospace',
       fontSize: 48,
       fontStyle: 'bold',
@@ -54,37 +51,71 @@ export default class EntryScene extends Phaser.Scene {
       align: 'center',
     });
     this.title.setOrigin(0.5);
+  }
 
-    this.playButton = new Button(this, centerX, centerY, 'cmdButton', 'cmdButtonHover', 'Play', 'Battle');
-
-    // player ship
+  renderPlayerShip() {
     this.anims.create({
       key: 'playerShip',
       frames: this.anims.generateFrameNumbers('playerShip'),
       frameRate: 20,
       repeat: -1,
     });
-    this.player = new Player(
-      this,
-      centerX,
-      centerY * 1.7,
+    this.playerShip = this.add.sprite(
+      this.game.config.width * 0.5,
+      this.game.config.height * 0.5 * 1.7,
       'playerShip',
     );
-    this.player.scale = 4.0;
+    this.playerShip.scale = 4.0;
+    this.playerShip.play('playerShip');
+  }
 
-    // gunShip
+  renderAlienShip() {
+    this.alienShip = this.add.sprite(
+      this.game.config.width * 0.5,
+      (this.game.config.height * 0.5) + 30,
+      'alienShip',
+    );
+    this.alienShip.scale = 4.0;
     this.anims.create({
-      key: 'gunShip',
-      frames: this.anims.generateFrameNumbers('gunShip'),
+      key: 'alienShip',
+      frames: this.anims.generateFrameNumbers('alienShip'),
       frameRate: 20,
       repeat: -1,
     });
-    this.gunShip = new GunShip(
-      this,
-      centerX,
-      centerY * 1.7,
-      'gunShip',
+    this.alienShip.play('alienShip');
+  }
+
+  renderDogShip() {
+    this.dogShip = this.add.sprite(
+      (this.game.config.width * 0.5) * 0.3,
+      (this.game.config.height * 0.5) + 10,
+      'dogShip',
     );
-    this.gunShip.scale = 4.0;
+    this.dogShip.scale = 4.0;
+  }
+
+  renderMotherShip() {
+    this.motherShip = this.add.sprite(
+      (this.game.config.width * 0.5) * 1.7,
+      (this.game.config.height * 0.5) + 10,
+      'motherShip',
+    );
+    this.motherShip.scale = 4.0;
+  }
+
+  startBackSound() {
+    this.sound.play('entry', { volume: 0.1, loop: true });
+  }
+
+  create() {
+    this.renderBackground();
+    this.renderTitle();
+    this.renderPlayButton();
+    this.renderPlayerShip();
+    this.renderAlienShip();
+    this.renderDogShip();
+    this.renderMotherShip();
+
+    this.startBackSound();
   }
 }
