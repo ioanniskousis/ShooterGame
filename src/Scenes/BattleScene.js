@@ -4,14 +4,14 @@ import AlienShip from '../Entities/alienShip';
 import SkyLayer from '../Entities/skyLayer';
 import DogShip from '../Entities/dogShip';
 import MotherShip from '../Entities/motherShip';
-import { renderScore, addPoints } from './score';
+import { renderScore, addPoints, renderPower } from './score';
 
 export default class BattleScene extends Phaser.Scene {
   constructor() {
     super({ key: 'BattleScene' });
-    this.alienShipDelay = 1789;
-    this.dogShipDelay = 7654;
-    this.motherShipDelay = 4567;
+    this.alienShipDelay = 2000;
+    this.dogShipDelay = 7000;
+    this.motherShipDelay = 5000;
   }
 
   preload() {
@@ -151,17 +151,25 @@ export default class BattleScene extends Phaser.Scene {
 
     this.physics.add.overlap(this.player, this.enemies, (player, enemy) => {
       if (!player.getData('isDead') && !enemy.getData('isDead')) {
-        player.explode(false);
-        player.onDestroy();
+        if (window.game.power <= 0) {
+          player.explode(false);
+          player.onDestroy();
+        }
         enemy.explode(true);
+        window.game.power -= 20;
+        renderPower();
       }
     });
 
     this.physics.add.overlap(this.player, this.enemyLasers, (player, laser) => {
       if (!player.getData('isDead') && !laser.getData('isDead')) {
-        player.explode(false);
-        player.onDestroy();
+        if (window.game.power <= 0) {
+          player.explode(false);
+          player.onDestroy();
+        }
         laser.destroy();
+        window.game.power -= 10;
+        renderPower();
       }
     });
 
@@ -174,6 +182,7 @@ export default class BattleScene extends Phaser.Scene {
 
   create() {
     window.game.points = 0;
+    window.game.power = 100;
 
     this.prepareAnimations();
     this.renderPlayer();
@@ -188,6 +197,7 @@ export default class BattleScene extends Phaser.Scene {
     this.addCollisions();
 
     renderScore();
+    renderPower();
   }
 
   updatePlayer() {

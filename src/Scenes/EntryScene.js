@@ -1,5 +1,4 @@
 import Phaser from '../phaser';
-// import Button from '../Objects/Button';
 
 export default class EntryScene extends Phaser.Scene {
   constructor() {
@@ -9,8 +8,6 @@ export default class EntryScene extends Phaser.Scene {
   preload() {
     this.load.image('sky1', '../src/resources/images/sky1.png');
     this.load.image('space', '../src/resources/images/space-top.png');
-    // this.load.image('cmdButton', '../src/resources/images/ui/cmdButton.png');
-    // this.load.image('cmdButtonHover', '../src/resources/images/ui/cmdButtonHover.png');
     this.load.image('playButton', '../src/resources/images/ui/playButton.png');
     this.load.image('playButtonHover', '../src/resources/images/ui/playButtonHover.png');
     this.load.image('leadersBoardButton', '../src/resources/images/ui/leadersBoardButton.png');
@@ -79,6 +76,7 @@ export default class EntryScene extends Phaser.Scene {
     });
 
     playButton.on('pointerdown', () => {
+      this.stopBackSound();
       this.scene.start('BattleScene');
     }, this);
   }
@@ -157,11 +155,10 @@ export default class EntryScene extends Phaser.Scene {
 
   startBackSound() {
     this.music = this.sound.add('entry');
-    // this.sound.play('entry', { volume: 0.1, loop: true });
+    // this.sound.play('entry', { volume: 0.05, loop: true });
   }
 
   stopBackSound() {
-    // alert('stopBackSound');
     this.music.stop();
   }
 

@@ -28,6 +28,7 @@ class Game extends Phaser.Game {
     super(config);
     this.points = 0;
     this.playerName = '';
+    this.power = 100;
     this.scene.start('Entry');
   }
 }

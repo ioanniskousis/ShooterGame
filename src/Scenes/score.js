@@ -78,6 +78,25 @@ export function renderScore() {
   document.body.appendChild(scoresDiv);
 }
 
+export function renderPower() {
+  let powerDiv = document.getElementById('powerDiv');
+  if (powerDiv) {
+    const powerText = document.getElementById('powerText');
+    powerText.innerHTML = 'Power : '.concat(window.game.power).concat('%');
+    return;
+  }
+  powerDiv = document.createElement('div');
+  powerDiv.className = 'powerDiv';
+  powerDiv.id = 'powerDiv';
+
+  const powerText = document.createElement('label');
+  powerText.id = 'powerText';
+  powerText.innerHTML = 'Power : '.concat(window.game.power).concat('%');
+
+  powerDiv.appendChild(powerText);
+  document.body.appendChild(powerDiv);
+}
+
 export function addPoints(points) {
   window.game.points += points;
   const scoreText = document.getElementById('scoreText');
@@ -90,6 +109,48 @@ export function checkScore() {
       renderInput();
     } else if (window.game.points > 0) {
       saveScore(showSaved);
+    }
+  }
+}
+
+export async function fetchScores(callBack, scene) {
+  const url = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/0eU4Ao7UOsXIBhit8aU1/scores';
+
+  await fetch(url)
+    .then((response) => response.json())
+    .then((data) => callBack(data, scene))
+    .catch((err) => appAlert('Error', err));
+}
+
+function renderScoreData(scene, scoreData, yPos) {
+  const tcolor = scoreData.user === window.game.playerName ? 'yellow' : '#ffffff';
+  scene.add.text(100, yPos, scoreData.user, {
+    fontFamily: 'monospace',
+    fontSize: 22,
+    color: tcolor,
+    align: 'left',
+  });
+  scene.add.text(280, yPos, scoreData.score, {
+    fontFamily: 'monospace',
+    fontSize: 22,
+    color: tcolor,
+    align: 'right',
+    fixedWidth: 100,
+  });
+}
+
+export function gotScores(data, scene) {
+  const { result } = data;
+  const rsort = result.sort((a, b) => b.score - a.score);
+  let yPos = 100;
+  const players = [];
+  for (let index = 0; index < rsort.length; index += 1) {
+    const element = rsort[index];
+    if (!players.includes(element.user)) {
+      players.push(element.user);
+      renderScoreData(scene, element, yPos);
+      yPos += 30;
+      if (players.length > 9) break;
     }
   }
 }
