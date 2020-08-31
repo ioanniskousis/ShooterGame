@@ -4,7 +4,7 @@ import PlayerLaser from './playerLaser';
 
 export default class PlayerShip extends Entity {
   constructor(scene, x, y, key) {
-    super(scene, x, y, key, 'Player');
+    super(scene, x, y, key, 'PlayerShip');
     this.setData('speed', 200);
     this.play('playerShip');
 
@@ -37,9 +37,11 @@ export default class PlayerShip extends Entity {
       this.y = Phaser.Math.Clamp(this.y, 0, this.scene.game.config.height);
 
       if (this.getData('isShooting')) {
+        // alert('isShooting');
         if (this.getData('timerShootTick') < this.getData('timerShootDelay')) {
           this.setData('timerShootTick', this.getData('timerShootTick') + 1);
         } else {
+          // alert('else');
           const laser = new PlayerLaser(this.scene, this.x, this.y);
           this.scene.playerLasers.add(laser);
 
@@ -54,7 +56,7 @@ export default class PlayerShip extends Entity {
     this.scene.time.addEvent({
       delay: 2100,
       callback() {
-        this.scene.scene.start('SceneGameOver');
+        this.scene.start('GameOverScene');
       },
       callbackScope: this,
       loop: false,

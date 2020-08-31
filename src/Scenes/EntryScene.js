@@ -1,5 +1,5 @@
 import Phaser from '../phaser';
-import Button from '../Objects/Button';
+// import Button from '../Objects/Button';
 
 export default class EntryScene extends Phaser.Scene {
   constructor() {
@@ -7,9 +7,14 @@ export default class EntryScene extends Phaser.Scene {
   }
 
   preload() {
+    this.load.image('sky1', '../src/resources/images/sky1.png');
     this.load.image('space', '../src/resources/images/space-top.png');
-    this.load.image('cmdButton', '../src/resources/images/ui/cmdButton.png');
-    this.load.image('cmdButtonHover', '../src/resources/images/ui/cmdButtonHover.png');
+    // this.load.image('cmdButton', '../src/resources/images/ui/cmdButton.png');
+    // this.load.image('cmdButtonHover', '../src/resources/images/ui/cmdButtonHover.png');
+    this.load.image('playButton', '../src/resources/images/ui/playButton.png');
+    this.load.image('playButtonHover', '../src/resources/images/ui/playButtonHover.png');
+    this.load.image('leadersBoardButton', '../src/resources/images/ui/leadersBoardButton.png');
+    this.load.image('leadersBoardButtonHover', '../src/resources/images/ui/leadersBoardButtonHover.png');
 
     this.load.spritesheet('playerShip', '../src/resources/images/ui/playerShip.png', {
       frameWidth: 16,
@@ -37,9 +42,45 @@ export default class EntryScene extends Phaser.Scene {
   }
 
   renderPlayButton() {
-    const centerX = this.game.config.width * 0.5;
-    const centerY = this.game.config.height * 0.5;
-    this.playButton = new Button(this, centerX, centerY - 80, 'cmdButton', 'cmdButtonHover', 'Play', 'Battle');
+    const playButton = this.add.sprite(
+      this.game.config.width * 0.5,
+      (this.game.config.height * 0.5) - 100,
+      'playButton',
+    );
+    playButton.setInteractive();
+
+    playButton.on('pointerover', () => {
+      playButton.setTexture('playButtonHover');
+    }, this);
+
+    playButton.on('pointerout', () => {
+      playButton.setTexture('playButton');
+    });
+
+    playButton.on('pointerdown', () => {
+      this.scene.start('BattleScene');
+    }, this);
+  }
+
+  renderLeadersBoardButton() {
+    const leadersBoardButton = this.add.sprite(
+      this.game.config.width * 0.5,
+      (this.game.config.height * 0.5) - 30,
+      'leadersBoardButton',
+    );
+    leadersBoardButton.setInteractive();
+
+    leadersBoardButton.on('pointerover', () => {
+      leadersBoardButton.setTexture('leadersBoardButtonHover');
+    }, this);
+
+    leadersBoardButton.on('pointerout', () => {
+      leadersBoardButton.setTexture('leadersBoardButton');
+    });
+
+    leadersBoardButton.on('pointerdown', () => {
+      this.scene.start('LeadersBoardScene');
+    }, this);
   }
 
   renderTitle() {
@@ -72,7 +113,7 @@ export default class EntryScene extends Phaser.Scene {
   renderAlienShip() {
     this.alienShip = this.add.sprite(
       this.game.config.width * 0.5,
-      (this.game.config.height * 0.5) + 30,
+      (this.game.config.height * 0.5) + 80,
       'alienShip',
     );
     this.alienShip.scale = 4.0;
@@ -104,13 +145,20 @@ export default class EntryScene extends Phaser.Scene {
   }
 
   startBackSound() {
-    this.sound.play('entry', { volume: 0.1, loop: true });
+    this.music = this.sound.add('entry');
+    // this.sound.play('entry', { volume: 0.1, loop: true });
+  }
+
+  stopBackSound() {
+    // alert('stopBackSound');
+    this.music.stop();
   }
 
   create() {
     this.renderBackground();
     this.renderTitle();
     this.renderPlayButton();
+    this.renderLeadersBoardButton();
     this.renderPlayerShip();
     this.renderAlienShip();
     this.renderDogShip();
