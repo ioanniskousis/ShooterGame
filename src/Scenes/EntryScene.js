@@ -36,9 +36,30 @@ export default class EntryScene extends Phaser.Scene {
   renderBackground() {
     this.space = this.add.sprite(
       this.game.config.width * 0.5,
-      70,
+      0,
       'space',
     );
+  }
+
+  renderTitle() {
+    this.title = this.add.text(this.game.config.width * 0.5, 55, 'Shooter Game', {
+      fontFamily: 'monospace',
+      fontSize: 48,
+      fontStyle: 'bold',
+      color: '#ffffff',
+      align: 'center',
+    });
+    this.title.setOrigin(0.5);
+  }
+
+  renderPlayerName() {
+    this.title = this.add.text(this.game.config.width * 0.5, 140, window.game.playerName, {
+      fontFamily: 'monospace',
+      fontSize: 22,
+      color: 'yellow',
+      align: 'center',
+    });
+    this.title.setOrigin(0.5);
   }
 
   renderPlayButton() {
@@ -83,16 +104,6 @@ export default class EntryScene extends Phaser.Scene {
     }, this);
   }
 
-  renderTitle() {
-    this.title = this.add.text(this.game.config.width * 0.5, 100, 'Shooter Game', {
-      fontFamily: 'monospace',
-      fontSize: 48,
-      fontStyle: 'bold',
-      color: '#ffffff',
-      align: 'center',
-    });
-    this.title.setOrigin(0.5);
-  }
 
   renderPlayerShip() {
     this.anims.create({
@@ -157,6 +168,7 @@ export default class EntryScene extends Phaser.Scene {
   create() {
     this.renderBackground();
     this.renderTitle();
+    this.renderPlayerName();
     this.renderPlayButton();
     this.renderLeadersBoardButton();
     this.renderPlayerShip();

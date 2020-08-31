@@ -21,12 +21,13 @@ const config = {
     GameOverScene,
     LeadersBoardScene,
   ],
-  points: 0,
 };
 
 class Game extends Phaser.Game {
   constructor() {
     super(config);
+    this.points = 0;
+    this.playerName = '';
     this.scene.start('Entry');
   }
 }

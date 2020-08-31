@@ -1,46 +1,47 @@
 import Phaser from '../phaser';
 import SkyLayer from '../Entities/skyLayer';
+import { appAlert } from '../utils';
 
-function renderInput() {
-  const inputDiv = document.createElement('div');
-  inputDiv.className = 'inputDiv';
-  inputDiv.id = 'inputDiv';
-
-  const input = document.createElement('input');
-  input.type = 'text';
-
-  const button = document.createElement('button');
-  button.innerHTML = 'Save';
-  button.addEventListener('click', () => {
-    inputDiv.remove();
-  });
-
-  inputDiv.appendChild(input);
-  inputDiv.appendChild(button);
-  document.body.appendChild(inputDiv);
-}
-
-async function fetchScores(callBack) {
+async function fetchScores(callBack, scene) {
   const url = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/0eU4Ao7UOsXIBhit8aU1/scores';
-
-  // const data = {
-  //   method: 'GET',
-  //   headers: {
-  //     Accept: 'Application/json',
-  //     'Content-Type': 'application/json',
-  //   },
-  //   body: JSON.stringify({
-  //     name: 'SpaceSjafhjdskcbter',
-  //   }),
-  // };
-  // 0eU4Ao7UOsXIBhit8aU1
-  // result,Game with ID: 0eU4Ao7UOsXIBhit8aU1 added.
-  // result,Game with ID: xVDL8s89b8FbTpcOukzM added.
 
   await fetch(url)
     .then((response) => response.json())
-    .then((data) => callBack(data))
-    .catch((err) => alert('Error : '.concat(err)));
+    .then((data) => callBack(data, scene))
+    .catch((err) => appAlert('Error', err));
+}
+
+function renderScoreData(scene, scoreData, yPos) {
+  const tcolor = scoreData.user === window.game.playerName ? 'yellow' : '#ffffff';
+  scene.add.text(100, yPos, scoreData.user, {
+    fontFamily: 'monospace',
+    fontSize: 22,
+    color: tcolor,
+    align: 'left',
+  });
+  scene.add.text(280, yPos, scoreData.score, {
+    fontFamily: 'monospace',
+    fontSize: 22,
+    color: tcolor,
+    align: 'right',
+    fixedWidth: 100,
+  });
+}
+
+function gotScores(data, scene) {
+  const { result } = data;
+  const rsort = result.sort((a, b) => b.score - a.score);
+  let yPos = 100;
+  const players = [];
+  for (let index = 0; index < rsort.length; index += 1) {
+    const element = rsort[index];
+    if (!players.includes(element.user)) {
+      players.push(element.user);
+      renderScoreData(scene, element, yPos);
+      yPos += 30;
+      if (players.length > 8) break;
+    }
+  }
 }
 
 export default class LeadersBoardScene extends Phaser.Scene {
@@ -48,25 +49,22 @@ export default class LeadersBoardScene extends Phaser.Scene {
     super({ key: 'LeadersBoardScene' });
   }
 
-  gotScores(data) {
-    alert(Object.entries(data));
-    // alert(this.backgrounds);
-  }
-
   preload() {
     this.load.image('menuButton', '../src/resources/images/ui/menuButton.png');
     this.load.image('menuButtonHover', '../src/resources/images/ui/menuButtonHover.png');
 
-    fetchScores(this.gotScores);
+    fetchScores(gotScores, this);
   }
 
-  create() {
+  renderBackground() {
     this.backgrounds = [];
     for (let i = 0; i < 5; i += 1) {
       const bg = new SkyLayer(this, 'sky1', i * 10);
       this.backgrounds.push(bg);
     }
+  }
 
+  renderTitle() {
     const title = this.add.text(this.game.config.width * 0.5, 50, 'Leaders Board', {
       fontFamily: 'monospace',
       fontSize: 32,
@@ -75,7 +73,9 @@ export default class LeadersBoardScene extends Phaser.Scene {
       align: 'center',
     });
     title.setOrigin(0.5);
+  }
 
+  renderMenuButton() {
     const btnMenu = this.add.sprite(
       this.game.config.width * 0.5,
       (this.game.config.height * 0.9),
@@ -98,8 +98,12 @@ export default class LeadersBoardScene extends Phaser.Scene {
       }
       this.scene.start('Entry');
     }, this);
+  }
 
-    renderInput();
+  create() {
+    this.renderBackground();
+    this.renderTitle();
+    this.renderMenuButton();
   }
 
   update() {

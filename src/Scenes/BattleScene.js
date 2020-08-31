@@ -1,31 +1,10 @@
 import Phaser from '../phaser';
 import PlayerShip from '../Entities/player';
-// import PlayerLaser from '../Entities/playerLaser';
 import AlienShip from '../Entities/alienShip';
 import SkyLayer from '../Entities/skyLayer';
 import DogShip from '../Entities/dogShip';
 import MotherShip from '../Entities/motherShip';
-
-// import { Player, GunShip, ChaserShip, CarrierShip, ScrollingBackground } from './Entities.js';
-
-function renderScore() {
-  const scoresDiv = document.createElement('div');
-  scoresDiv.className = 'scoresDiv';
-  scoresDiv.id = 'scoresDiv';
-
-  const scoreText = document.createElement('label');
-  scoreText.id = 'scoreText';
-  scoreText.innerHTML = 'Score : '.concat(window.game.points.toString());
-
-  scoresDiv.appendChild(scoreText);
-  document.body.appendChild(scoresDiv);
-}
-
-function addPoints(points) {
-  window.game.points = parseInt(window.game.points, 10) + parseInt(points, 10);
-  const scoreText = document.getElementById('scoreText');
-  scoreText.innerHTML = 'Score : '.concat(window.game.points.toString());
-}
+import { renderScore, addPoints } from './score';
 
 export default class BattleScene extends Phaser.Scene {
   constructor() {
@@ -244,11 +223,10 @@ export default class BattleScene extends Phaser.Scene {
 
       enemy.update();
 
-      if (enemy.x < -enemy.displayWidth ||
-        enemy.x > this.game.config.width + enemy.displayWidth ||
-        enemy.y < -enemy.displayHeight * 4 ||
-        enemy.y > this.game.config.height + enemy.displayHeight) {
-
+      if (enemy.x < -enemy.displayWidth
+        || enemy.x > this.game.config.width + enemy.displayWidth
+        || enemy.y < -enemy.displayHeight * 4
+        || enemy.y > this.game.config.height + enemy.displayHeight) {
         if (enemy) {
           if (enemy.onDestroy !== undefined) {
             enemy.onDestroy();
@@ -264,10 +242,10 @@ export default class BattleScene extends Phaser.Scene {
       const laser = this.enemyLasers.getChildren()[i];
       laser.update();
 
-      if (laser.x < -laser.displayWidth ||
-        laser.x > this.game.config.width + laser.displayWidth ||
-        laser.y < -laser.displayHeight * 4 ||
-        laser.y > this.game.config.height + laser.displayHeight) {
+      if (laser.x < -laser.displayWidth
+        || laser.x > this.game.config.width + laser.displayWidth
+        || laser.y < -laser.displayHeight * 4
+        || laser.y > this.game.config.height + laser.displayHeight) {
         if (laser) {
           laser.destroy();
         }
@@ -280,10 +258,10 @@ export default class BattleScene extends Phaser.Scene {
       const laser = this.playerLasers.getChildren()[i];
       laser.update();
 
-      if (laser.x < -laser.displayWidth ||
-        laser.x > this.game.config.width + laser.displayWidth ||
-        laser.y < -laser.displayHeight * 4 ||
-        laser.y > this.game.config.height + laser.displayHeight) {
+      if (laser.x < -laser.displayWidth
+        || laser.x > this.game.config.width + laser.displayWidth
+        || laser.y < -laser.displayHeight * 4
+        || laser.y > this.game.config.height + laser.displayHeight) {
         if (laser) {
           laser.destroy();
         }

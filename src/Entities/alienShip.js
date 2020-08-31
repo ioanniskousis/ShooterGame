@@ -27,9 +27,7 @@ export default class AlienShip extends Entity {
 
   onDestroy() {
     if (this.shootTimer !== undefined) {
-      if (this.shootTimer) {
-        this.shootTimer.remove(false);
-      }
+      if (this.shootTimer) this.shootTimer.remove(false);
     }
-  };
+  }
 }
