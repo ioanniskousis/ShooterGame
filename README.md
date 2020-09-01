@@ -66,37 +66,62 @@ This is an arcade Shooter Game application where the user controls a flying vehi
 ### Entry Scene  
 <img src="src/resources/images/entry.png" alt="entry.png">
 <hr />
+
 ### Battle Scene  
 <img src="src/resources/images/battle.png" alt="battle.png">
 <hr />
+
 ### Game Over Scene  
 <img src="src/resources/images/gameover.png" alt="gameover.png">
 <hr />
+
 ### Game Over Scene User Name Input 
 <img src="src/resources/images/input.png" alt="input.png">
 <hr />
-### leadersboard Scene  
+
+### Leadersboard Scene  
 <img src="src/resources/images/leadersboard.png" alt="leadersboard.png">
 <hr />
 <!-- ABOUT THE PROJECT -->
 
 ## About The Project  
 
-  The project uses the Phaser3 game engine and almost all the code is related to this framework.  
-  The entry point which is index.js
-  The main control is applied in index.js.  
-  Partially,  
-    - the model for countries is implemented in countriesDB.js creating a data set of countries stored in dist/countries.json  
-    - the model for cities is implemented in citiesDB.js creating a data set of cities stored in dist/cities.json   
-    - the main consept is controlled in index.js  
-      - first a callback function (citySelected) is supplied to the interface elements that represent a city (city buttons)  
-      - the callback receives the requested city.  
-      - calls an asynchronous API fetch procedure provided a callback (cityWeatherArrived) to receive the weather data for the requested city  
-      - the city weather data that arrived are passed to the interface module cityWeatherInterface.js   
-    - the module cityWeatherInterface.js contains procedures to update the interface information with the new data  
+  The project uses the phaser3 game engine and almost all the code is related to this framework  
+  Webpack is used to compile src folder content and outputs to dist folder  
+  The entry point which is index.js just calls the game.js containing the code to initialize a Game object which loads the Entry Scene.  
 
-  * An initial population is performed when the localStorage is empty of Favorites by data held in seed.js.  
-  * Shorthand commands for creating and accessing elements are used and are held in utils.js.  
+  Four phaser3 scenes are used :  
+
+    - EntryScene gives instructions on game usage   
+
+    - BattleScene is the actual game screen  
+
+    - Six classes are running in this scene implementing the features of the game  
+
+      - The 3 enemy ship types held in alientShip.js, dogShip.js and motherShip.js respectively  
+
+      - The enemy lasers held in laserEnemy.js  
+
+      - The player's ship from player.js   
+
+      - And the player's lasers from playerLaser.js  
+
+    - GemeOver Scene which appears after player's power has been consumed  
+        If the score of the game is greater than zero an input form appears to the user for writing their name only in case they have not already, else the score is submitted to the leadersboard API and saved automatically  
+
+    - LeadersBoard Scene. Shows the top 10 users' scores sorted in descending order  
+
+  Scoring is applied giving a different number of points by shooting enemies and enemy weapons. The score is stored remotely using an API  
+
+  The game ends after losing the whole of the power. Power is lost each time the player's ship conflicts with enemies lasers or the enemy ships  
+
+  The leadersboard API service is created by Microverse dedicated to this application and has 3 options called asynchronously  
+
+    - Get an ID for the application. This is implemented beyond the actual project  
+
+    - Submit a player's score. This is performed after each game session only if the score is higher than zero  
+
+    - Get the scores list. This is called in leadersboard scene  
 
 <hr/>
 
@@ -104,19 +129,22 @@ This is an arcade Shooter Game application where the user controls a flying vehi
 
 ## Application Instructions  
 
-  * The application comes with some initial data about the favotires cities held in seed.js file  
-  * Also, there are 200.000 locations to be invoked  
+  * In the Entry scene click Play to start the game or click Leadersboard to see the top 10 user's scores    
 
-  * The favorite cities list is on the left. Clicking a city button  an http request is generated to get information about the weather at the requested city.  
+  * In the Battle scene use the keyboard arrows to move in 2 dimensions and the space bar to shoot weapons against the enemy ships that are coming down from the screen top. You start having 100% power shown at the screen bottom and your score is zero shown at the screen top  
+    Crashing your ship on an enemy ship you loose 20% of power  
 
-  <img src="resources/images/favourites.png" alt="favourites" width="300" height="180"></img>
+    There are 3 types of enemy ships :  
 
-  * the received data are passed to the weather interface (cityWeatherInterface).  
+      - The Alien Ship, that shoots lasers. A new one appears every 2 seconds. You have to avoid the lasers else you lose 10% of your power. Destroying an Alien Ship you get 100 points. Destroying a laser you get 400 points  
 
-  <img src="resources/images/weather.png" alt="weather.png" width="300" height="180"></img>
+      - The Dog Ship, that chases your ship and shooting it you get 200 points. A new one appears every 5 seconds  
 
-  * click the units button at the top-right to toggle between Fahrenheit and Celcius  
-  * play around selecting a particular country's cities and select a city to view their weather  
+      - The Mother Ship that just comes down the screen. Shooting it you gain 400 points. A new one appears every 7 seconds  
+
+  * Loosing the 100% of your power is the game end and the GameOver scene appears. If there is a score achieved and you have already given your name from a previous session the score is submitted to the remote API. If that is the first session then an input form appears to enter your name first and then the score is submitted. In the GameOver scene, you can restart a new game session or select LeadersBoard scene  
+
+  * The LeadersBoard scene shows only the top 10 scores sorted in descending order  
 
 <hr/>
 
@@ -156,15 +184,15 @@ This is an arcade Shooter Game application where the user controls a flying vehi
 
 This project was built using these technologies.
 
-  - JavaScript (ES6)
-  - HTML5
-  - CSS3
-  - webpack
-  - APIs
-  - Git - GitHub
-  - ESLint
-  - Stylelint
-  - Stickler
+  - Phaser3  
+  - JavaScript (ES6)  
+  - HTML5  
+  - CSS3  
+  - webpack  
+  - APIs  
+  - Git - GitHub  
+  - ESLint  
+  - Stylelint  
 
 <hr/>
 
