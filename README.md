@@ -63,15 +63,27 @@ This is an arcade Shooter Game application where the user controls a flying vehi
 - [Acknowledgements](#acknowledgements)
 
 ## Screen Shots  
-<img src="resources/images/wr-rain.png" alt="wr-rain.png">
+### Entry Scene  
+<img src="src/resources/images/entry.png" alt="entry.png">
 <hr />
-<img src="resources/images/wr-clouds.png" alt="wr-clouds.png">
+### Battle Scene  
+<img src="src/resources/images/battle.png" alt="battle.png">
+<hr />
+### Game Over Scene  
+<img src="src/resources/images/gameover.png" alt="gameover.png">
+<hr />
+### Game Over Scene User Name Input 
+<img src="src/resources/images/input.png" alt="input.png">
+<hr />
+### leadersboard Scene  
+<img src="src/resources/images/leadersboard.png" alt="leadersboard.png">
 <hr />
 <!-- ABOUT THE PROJECT -->
 
 ## About The Project  
 
   The project uses the Phaser3 game engine and almost all the code is related to this framework.  
+  The entry point which is index.js
   The main control is applied in index.js.  
   Partially,  
     - the model for countries is implemented in countriesDB.js creating a data set of countries stored in dist/countries.json  
