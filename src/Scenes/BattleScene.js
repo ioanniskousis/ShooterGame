@@ -5,14 +5,14 @@ import SkyLayer from '../Entities/skyLayer';
 import DogShip from '../Entities/dogShip';
 import MotherShip from '../Entities/motherShip';
 import { renderScore, addPoints, renderPower } from './score';
-// import '../resources/images/sky1.png';
-// import '../resources/images/sky2.png';
-// import '../resources/images/ui/explosion.png';
-// import '../resources/images/ui/laserEnemy.png';
-// import '../resources/images/ui/laserPlayer.png';
-// import '../resources/audio/explosionAlien.wav';
-// import '../resources/audio/laser.wav';
-// import '../resources/images/ui/playerShip.png';
+import sky1 from '../resources/images/sky1.png';
+import sky2 from '../resources/images/sky2.png';
+import explosion from '../resources/images/ui/explosion.png';
+import laserEnemy from '../resources/images/ui/laserEnemy.png';
+import laserPlayer from '../resources/images/ui/laserPlayer.png';
+import explosionAlien from '../resources/audio/explosionAlien.wav';
+import laser from '../resources/audio/laser.wav';
+import playerShip from '../resources/images/ui/playerShip.png';
 
 export default class BattleScene extends Phaser.Scene {
   constructor() {
@@ -23,22 +23,22 @@ export default class BattleScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('sky1', '../src/resources/images/sky1.png');
-    this.load.image('sky2', '../src/resources/images/sky2.png');
+    this.load.image('sky1', sky1);
+    this.load.image('sky2', sky2);
 
-    this.load.spritesheet('explosion', '../src/resources/images/ui/explosion.png', {
+    this.load.spritesheet('explosion', explosion, {
       frameWidth: 32,
       frameHeight: 32,
     });
 
-    this.load.image('laserEnemy', '../src/resources/images/ui/laserEnemy.png');
-    this.load.image('laserPlayer', '../src/resources/images/ui/laserPlayer.png');
+    this.load.image('laserEnemy', laserEnemy);
+    this.load.image('laserPlayer', laserPlayer);
 
-    this.load.audio('explosionAlien', '../src/resources/audio/explosionAlien.wav');
+    this.load.audio('explosionAlien', explosionAlien);
 
-    this.load.audio('laser', '../src/resources/audio/laser.wav');
+    this.load.audio('laser', laser);
 
-    this.load.spritesheet('playerShip', '../src/resources/images/ui/playerShip.png', {
+    this.load.spritesheet('playerShip', playerShip, {
       frameWidth: 16,
       frameHeight: 16,
     });

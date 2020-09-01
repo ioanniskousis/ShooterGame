@@ -1,12 +1,12 @@
 import Phaser from '../phaser';
 import SkyLayer from '../Entities/skyLayer';
 import { checkScore } from './score';
-// import '../resources/images/ui/restartButton.png';
-// import '../resources/images/ui/restartButtonHover.png';
-// import '../resources/images/ui/menuButton.png';
-// import '../resources/images/ui/menuButtonHover.png';
-// import '../resources/images/ui/leadersBoardButton.png';
-// import '../resources/images/ui/leadersBoardButtonHover.png';
+import restartButton from '../resources/images/ui/restartButton.png';
+import restartButtonHover from '../resources/images/ui/restartButtonHover.png';
+import menuButton from '../resources/images/ui/menuButton.png';
+import menuButtonHover from '../resources/images/ui/menuButtonHover.png';
+import leadersBoardButton from '../resources/images/ui/leadersBoardButton.png';
+import leadersBoardButtonHover from '../resources/images/ui/leadersBoardButtonHover.png';
 
 export default class GameOverScene extends Phaser.Scene {
   constructor() {
@@ -14,12 +14,12 @@ export default class GameOverScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('restartButton', '../src/resources/images/ui/restartButton.png');
-    this.load.image('restartButtonHover', '../src/resources/images/ui/restartButtonHover.png');
-    this.load.image('menuButton', '../src/resources/images/ui/menuButton.png');
-    this.load.image('menuButtonHover', '../src/resources/images/ui/menuButtonHover.png');
-    this.load.image('leadersBoardButton', '../src/resources/images/ui/leadersBoardButton.png');
-    this.load.image('leadersBoardButtonHover', '../src/resources/images/ui/leadersBoardButtonHover.png');
+    this.load.image('restartButton', restartButton);
+    this.load.image('restartButtonHover', restartButtonHover);
+    this.load.image('menuButton', menuButton);
+    this.load.image('menuButtonHover', menuButtonHover);
+    this.load.image('leadersBoardButton', leadersBoardButton);
+    this.load.image('leadersBoardButtonHover', leadersBoardButtonHover);
   }
 
   renderLeadersBoardButton() {

@@ -1,15 +1,15 @@
 import Phaser from '../phaser';
-// import '../resources/images/sky1.png';
-// import '../resources/images/space-top.png';
-// import '../resources/images/ui/playButton.png';
-// import '../resources/images/ui/playButtonHover.png';
-// import '../resources/images/ui/leadersBoardButton.png';
-// import '../resources/images/ui/leadersBoardButtonHover.png';
-// import '../resources/images/ui/playerShip.png';
-// import '../resources/images/ui/alienShip.png';
-// import '../resources/images/ui/motherShip.png';
-// import '../resources/images/ui/dogShip.png';
-// import '../resources/audio/entry.mp3';
+import sky1 from '../resources/images/sky1.png';
+import spacetop from '../resources/images/space-top.png';
+import playButton from '../resources/images/ui/playButton.png';
+import playButtonHover from '../resources/images/ui/playButtonHover.png';
+import leadersBoardButton from '../resources/images/ui/leadersBoardButton.png';
+import leadersBoardButtonHover from '../resources/images/ui/leadersBoardButtonHover.png';
+import playerShip from '../resources/images/ui/playerShip.png';
+import alienShip from '../resources/images/ui/alienShip.png';
+import motherShip from '../resources/images/ui/motherShip.png';
+import dogShip from '../resources/images/ui/dogShip.png';
+import entry from '../resources/audio/entry.mp3';
 
 export default class EntryScene extends Phaser.Scene {
   constructor() {
@@ -17,28 +17,28 @@ export default class EntryScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('sky1', '../src/resources/images/sky1.png');
-    this.load.image('space', '../src/resources/images/space-top.png');
-    this.load.image('playButton', '../src/resources/images/ui/playButton.png');
-    this.load.image('playButtonHover', '../src/resources/images/ui/playButtonHover.png');
-    this.load.image('leadersBoardButton', '../src/resources/images/ui/leadersBoardButton.png');
-    this.load.image('leadersBoardButtonHover', '../src/resources/images/ui/leadersBoardButtonHover.png');
+    this.load.image('sky1', sky1);
+    this.load.image('space', spacetop);
+    this.load.image('playButton', playButton);
+    this.load.image('playButtonHover', playButtonHover);
+    this.load.image('leadersBoardButton', leadersBoardButton);
+    this.load.image('leadersBoardButtonHover', leadersBoardButtonHover);
 
-    this.load.spritesheet('playerShip', '../src/resources/images/ui/playerShip.png', {
+    this.load.spritesheet('playerShip', playerShip, {
       frameWidth: 16,
       frameHeight: 16,
     });
-    this.load.spritesheet('alienShip', '../src/resources/images/ui/alienShip.png', {
+    this.load.spritesheet('alienShip', alienShip, {
       frameWidth: 16,
       frameHeight: 16,
     });
-    this.load.spritesheet('motherShip', '../src/resources/images/ui/motherShip.png', {
+    this.load.spritesheet('motherShip', motherShip, {
       frameWidth: 16,
       frameHeight: 16,
     });
-    this.load.image('dogShip', '../src/resources/images/ui/dogShip.png');
+    this.load.image('dogShip', dogShip);
 
-    this.load.audio('entry', '../src/resources/audio/entry.mp3');
+    this.load.audio('entry', entry);
   }
 
   renderBackground() {
