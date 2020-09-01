@@ -97,10 +97,11 @@ export function renderPower() {
   document.body.appendChild(powerDiv);
 }
 
-export function addPoints(points) {
-  window.game.points += points;
+export function addPoints(game, points) {
+  const newPoints = game.points + points;
   const scoreText = document.getElementById('scoreText');
-  scoreText.innerHTML = 'Score : '.concat(window.game.points.toString());
+  if (scoreText) scoreText.innerHTML = 'Score : '.concat(newPoints.toString());
+  return newPoints;
 }
 
 export function checkScore() {

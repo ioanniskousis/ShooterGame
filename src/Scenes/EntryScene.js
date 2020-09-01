@@ -49,6 +49,23 @@ export default class EntryScene extends Phaser.Scene {
     this.title.setOrigin(0.5);
   }
 
+  renderInstructions() {
+    const style = {
+      fontFamily: 'monospace',
+      fontSize: 16,
+      color: '#aaf',
+      align: 'center',
+    };
+    const instruction1 = 'Use keyboard arrows to move your plane';
+    const instruction2 = 'Shoot using the space bar';
+    const xPos = this.game.config.width * 0.5;
+    const yPos = this.game.config.height - 40;
+    this.instructions1 = this.add.text(xPos, yPos, instruction1, style);
+    this.instructions1.setOrigin(0.5);
+    this.instructions2 = this.add.text(xPos, yPos + 20, instruction2, style);
+    this.instructions2.setOrigin(0.5);
+  }
+
   renderPlayerName() {
     this.title = this.add.text(this.game.config.width * 0.5, 140, window.game.playerName, {
       fontFamily: 'monospace',
@@ -165,6 +182,7 @@ export default class EntryScene extends Phaser.Scene {
   create() {
     this.renderBackground();
     this.renderTitle();
+    this.renderInstructions();
     this.renderPlayerName();
     this.renderPlayButton();
     this.renderLeadersBoardButton();

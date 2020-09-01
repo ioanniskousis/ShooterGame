@@ -23,7 +23,7 @@ const config = {
   ],
 };
 
-class Game extends Phaser.Game {
+export default class Game extends Phaser.Game {
   constructor() {
     super(config);
     this.points = 0;

@@ -145,7 +145,7 @@ export default class BattleScene extends Phaser.Scene {
         enemy.explode(true);
         playerLaser.destroy();
 
-        addPoints(enemy.destroyPoints);
+        window.game.points = addPoints(window.game, enemy.destroyPoints);
       }
     });
 
@@ -176,7 +176,7 @@ export default class BattleScene extends Phaser.Scene {
     this.physics.add.overlap(this.playerLasers, this.enemyLasers, (playerLasers, laser) => {
       playerLasers.explode(false);
       laser.destroy();
-      addPoints(laser.destroyPoints);
+      window.game.points = addPoints(window.game, laser.destroyPoints);
     });
   }
 
