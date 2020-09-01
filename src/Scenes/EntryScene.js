@@ -1,4 +1,15 @@
 import Phaser from '../phaser';
+import '../resources/images/sky1.png';
+import '../resources/images/space-top.png';
+import '../resources/images/ui/playButton.png';
+import '../resources/images/ui/playButtonHover.png';
+import '../resources/images/ui/leadersBoardButton.png';
+import '../resources/images/ui/leadersBoardButtonHover.png';
+import '../resources/images/ui/playerShip.png';
+import '../resources/images/ui/alienShip.png';
+import '../resources/images/ui/motherShip.png';
+import '../resources/images/ui/dogShip.png';
+import '../resources/audio/entry.mp3';
 
 export default class EntryScene extends Phaser.Scene {
   constructor() {
