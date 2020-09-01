@@ -1,12 +1,12 @@
 import Phaser from '../phaser';
 import SkyLayer from '../Entities/skyLayer';
 import { checkScore } from './score';
-import '../resources/images/ui/restartButton.png';
-import '../resources/images/ui/restartButtonHover.png';
-import '../resources/images/ui/menuButton.png';
-import '../resources/images/ui/menuButtonHover.png';
-import '../resources/images/ui/leadersBoardButton.png';
-import '../resources/images/ui/leadersBoardButtonHover.png';
+// import '../resources/images/ui/restartButton.png';
+// import '../resources/images/ui/restartButtonHover.png';
+// import '../resources/images/ui/menuButton.png';
+// import '../resources/images/ui/menuButtonHover.png';
+// import '../resources/images/ui/leadersBoardButton.png';
+// import '../resources/images/ui/leadersBoardButtonHover.png';
 
 export default class GameOverScene extends Phaser.Scene {
   constructor() {

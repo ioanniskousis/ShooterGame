@@ -1,8 +1,8 @@
 import Phaser from '../phaser';
 import SkyLayer from '../Entities/skyLayer';
 import { fetchScores, gotScores } from './score';
-import '../resources/images/ui/menuButton.png';
-import '../resources/images/ui/menuButtonHover.png';
+// import '../resources/images/ui/menuButton.png';
+// import '../resources/images/ui/menuButtonHover.png';
 
 export default class LeadersBoardScene extends Phaser.Scene {
   constructor() {

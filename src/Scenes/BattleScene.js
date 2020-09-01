@@ -5,14 +5,14 @@ import SkyLayer from '../Entities/skyLayer';
 import DogShip from '../Entities/dogShip';
 import MotherShip from '../Entities/motherShip';
 import { renderScore, addPoints, renderPower } from './score';
-import '../resources/images/sky1.png';
-import '../resources/images/sky2.png';
-import '../resources/images/ui/explosion.png';
-import '../resources/images/ui/laserEnemy.png';
-import '../resources/images/ui/laserPlayer.png';
-import '../resources/audio/explosionAlien.wav';
-import '../resources/audio/laser.wav';
-import '../resources/images/ui/playerShip.png';
+// import '../resources/images/sky1.png';
+// import '../resources/images/sky2.png';
+// import '../resources/images/ui/explosion.png';
+// import '../resources/images/ui/laserEnemy.png';
+// import '../resources/images/ui/laserPlayer.png';
+// import '../resources/audio/explosionAlien.wav';
+// import '../resources/audio/laser.wav';
+// import '../resources/images/ui/playerShip.png';
 
 export default class BattleScene extends Phaser.Scene {
   constructor() {
