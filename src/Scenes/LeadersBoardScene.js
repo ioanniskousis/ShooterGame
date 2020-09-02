@@ -3,6 +3,7 @@ import SkyLayer from '../Entities/skyLayer';
 import { fetchScores, gotScores } from './score';
 import menuButton from '../resources/images/ui/menuButton.png';
 import menuButtonHover from '../resources/images/ui/menuButtonHover.png';
+import { appAlert } from '../utils';
 
 export default class LeadersBoardScene extends Phaser.Scene {
   constructor() {
@@ -13,7 +14,7 @@ export default class LeadersBoardScene extends Phaser.Scene {
     this.load.image('menuButton', menuButton);
     this.load.image('menuButtonHover', menuButtonHover);
 
-    fetchScores(gotScores, this);
+    fetchScores(gotScores, appAlert, this);
   }
 
   renderBackground() {

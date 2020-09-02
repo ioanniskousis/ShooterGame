@@ -1,6 +1,8 @@
 import { appAlert } from '../utils';
 
-export async function saveScore(callBack) {
+const fetch = require('node-fetch');
+
+export async function saveScore(callBack, errorCallBack, user, score) {
   const url = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/0eU4Ao7UOsXIBhit8aU1/scores';
   const data = {
     method: 'POST',
@@ -9,15 +11,15 @@ export async function saveScore(callBack) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      user: window.game.playerName,
-      score: window.game.points,
+      user,
+      score,
     }),
   };
 
   await fetch(url, data)
     .then((response) => response.json())
     .then((data) => callBack(data))
-    .catch((err) => appAlert('Error ', err));
+    .catch((err) => errorCallBack('Error ', err));
 }
 
 function showSaved(data) {
@@ -42,7 +44,7 @@ export function renderInput() {
   saveButton.addEventListener('click', () => {
     if (input.value.trim() !== '') {
       window.game.playerName = input.value;
-      saveScore(showSaved);
+      saveScore(showSaved, appAlert, window.game.playerName, window.game.points);
       inputDiv.remove();
     }
   });
@@ -99,9 +101,12 @@ export function renderPower() {
 
 export function addPoints(game, points) {
   const newPoints = game.points + points;
-  const scoreText = document.getElementById('scoreText');
-  if (scoreText) scoreText.innerHTML = 'Score : '.concat(newPoints.toString());
   return newPoints;
+}
+
+export function renderPoints() {
+  const scoreText = document.getElementById('scoreText');
+  if (scoreText) scoreText.innerHTML = 'Score : '.concat(window.game.points.toString());
 }
 
 export function checkScore() {
@@ -109,18 +114,18 @@ export function checkScore() {
     if (window.game.playerName === '') {
       renderInput();
     } else if (window.game.points > 0) {
-      saveScore(showSaved);
+      saveScore(showSaved, appAlert, window.game.playerName, window.game.points);
     }
   }
 }
 
-export async function fetchScores(callBack, scene) {
+export async function fetchScores(callBack, errorCallBack, scene) {
   const url = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/0eU4Ao7UOsXIBhit8aU1/scores';
 
   await fetch(url)
     .then((response) => response.json())
     .then((data) => callBack(data, scene))
-    .catch((err) => appAlert('Error', err));
+    .catch((err) => errorCallBack('Error', err));
 }
 
 function renderScoreData(scene, scoreData, yPos) {

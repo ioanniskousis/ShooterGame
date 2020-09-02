@@ -38,6 +38,8 @@
   },
   "dependencies": {
     "canvas": "^2.6.1",
-    "phaser": "^3.24.1"
+    "node-fetch": "^2.6.0",
+    "phaser": "^3.24.1",
+    "regenerator-runtime": "^0.13.7"
   }
 }

@@ -4,7 +4,12 @@ import AlienShip from '../Entities/alienShip';
 import SkyLayer from '../Entities/skyLayer';
 import DogShip from '../Entities/dogShip';
 import MotherShip from '../Entities/motherShip';
-import { renderScore, addPoints, renderPower } from './score';
+import {
+  renderScore,
+  addPoints,
+  renderPower,
+  renderPoints,
+} from './score';
 import sky1 from '../resources/images/sky1.png';
 import sky2 from '../resources/images/sky2.png';
 import explosion from '../resources/images/ui/explosion.png';
@@ -154,6 +159,7 @@ export default class BattleScene extends Phaser.Scene {
         playerLaser.destroy();
 
         window.game.points = addPoints(window.game, enemy.destroyPoints);
+        renderPoints();
       }
     });
 
@@ -185,6 +191,7 @@ export default class BattleScene extends Phaser.Scene {
       playerLasers.explode(false);
       laser.destroy();
       window.game.points = addPoints(window.game, laser.destroyPoints);
+      renderPoints();
     });
   }
 
